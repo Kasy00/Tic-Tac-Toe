@@ -87,3 +87,6 @@ body{
     color: var(--sky-50);
 }
 
+.header, .footer{
+    text-shadow: 4px 4px 10px rgba(66, 68, 90, 1);
+}
