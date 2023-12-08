@@ -5,24 +5,23 @@ const Player = (sign) => {
     return { getSign };
 }
 
-const setSign = (e) => {
-    const cell = e.target;
-    cell.innerHTML = "X";
-}
-
 //Gameboard factory
 const Gameboard = () => {
-    let board = ["", "", "", "", "", "", "", "", ""];
-    const cells = document.querySelectorAll('[data-cell]');
-    cells.forEach(cell => {
-        cell.addEventListener("click", setSign);
-    });
+    const board = ['', '', '', '', '', '', '', '', ''];
+    const cells = document.querySelectorAll('[data-cell');
 
-    const playerX = Player('X');
-    const playerY = Player('O');
-    let activePlayer = playerX;
+    const updateBoard = () => {
+        cells.forEach((cell, index) => {
+            cell.addEventListener("click", setSign(index));
+        });    
+    };
 
-    return { board, cells }; 
+    const resetBoard = () => {
+        board.fill('');
+        updateBoard();
+    };
+    
+    return { board, cells, updateBoard, resetBoard }; 
 }
 
 const gameboard = Gameboard();
