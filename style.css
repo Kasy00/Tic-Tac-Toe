@@ -60,6 +60,12 @@ body{
     border: 2px solid var(--sky-400);
     background-color: var(--sky-50);
     border-radius: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8rem;
+    color: var(--sky-400);
+    cursor: pointer;
 }
 
 .footer{
