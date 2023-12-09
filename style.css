@@ -30,7 +30,29 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 2rem;
     height: 80%;
+}
+
+.container button{
+    font-family: inherit;
+    font-size: 3.5rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    width: clamp(40px, 50% + 1vw, 300px);
+    transition: all 0.4s ease;
+    border: 2px solid var(--sky-500);
+}
+
+.container button:hover{
+    background-color: var(--sky-500);
+    color: var(--sky-50);
+    border: 0.2rem solid var(--sky-50);
+}
+
+.container button:active{
+    transform: scale(0.9);
+    border: 0.2rem solid var(--sky-50);
 }
 
 .header{
