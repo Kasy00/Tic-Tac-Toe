@@ -38,8 +38,10 @@ const Gameboard = (() => {
     });
 
     const resetBoard = () => {
+        console.log('jestem');
         board.fill('');
         updateBoard();
+        winningMessage.classList.remove('show');
     };
     
     return { board, cells, updateBoard, resetBoard, setSign }; 
@@ -47,6 +49,8 @@ const Gameboard = (() => {
 
 const GameController = (() => {
     const changeTurnDisplay = document.getElementById('change-turn');
+    const restartBtns = document.querySelectorAll('.restart-button');
+
     Gameboard.updateBoard();
     const playerX = Player("X");
     const playerY = Player("O");
@@ -80,6 +84,10 @@ const GameController = (() => {
             return combination.every(index => board[index] === currentPlayer.getSign())
         });
     };
+
+    restartBtns.forEach(button =>{
+        button.addEventListener("click", Gameboard.resetBoard);
+    });
 
 
 
