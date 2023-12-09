@@ -21,6 +21,10 @@ const Gameboard = (() => {
         cells.forEach((cell, index) => {
             cell.textContent = board[index];
         });
+        if (board.every(cell => cell !== '')) {
+            winningMessageText.innerText = `Draw!`;
+            winningMessage.classList.add('show');
+        }
     };
 
     const setSign = ((index, sign) => {
@@ -28,19 +32,23 @@ const Gameboard = (() => {
             board[index] = sign;
             if(GameController.checkForWinner(board)){
                 winningMessageText.innerText = `${GameController.currentPlayer === GameController.playerX ? "X's" : "O's"} Wins!`;
-
                 winningMessage.classList.add('show');
+  
             }
-            
             updateBoard();
-        }
-        else return;
+        }else return;
+
     });
 
     const resetBoard = () => {
         board.fill('');
         updateBoard();
         winningMessage.classList.remove('show');
+        cells.forEach((cell, index) => {
+            cell.removeEventListener("click", () => {
+                GameController.makeMove(index);
+            });
+        });
         cells.forEach((cell, index) =>{
             cell.addEventListener("click", () => {
                 GameController.makeMove(index);
@@ -90,12 +98,15 @@ const GameController = (() => {
     };
 
     restartBtns.forEach(button =>{
-        button.addEventListener("click", Gameboard.resetBoard);
+        button.addEventListener("click", (e) => {
+            Gameboard.resetBoard();
+            changeTurnDisplay.textContent = "X's turn!";
+        });
     });
 
 
 
-    return { makeMove, checkForWinner};
+    return { makeMove, checkForWinner, changeTurn};
 })();
 
 
