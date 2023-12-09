@@ -10,9 +10,9 @@ const Gameboard = (() => {
     const cells = document.querySelectorAll('[data-cell]');
 
     cells.forEach((cell, index) =>{
-        cell.addEventListener("click", (e) => {
+        cell.addEventListener("click", () => {
             GameController.makeMove(index);
-        });
+        }, { once: true });
     });
 
     const updateBoard = () => {
@@ -42,15 +42,22 @@ const Gameboard = (() => {
 })();
 
 const GameController = (() => {
+    const changeTurnDisplay = document.getElementById('change-turn');
     Gameboard.updateBoard();
     const playerX = Player("X");
     const playerY = Player("O");
     let currentPlayer = playerX;
 
+    changeTurnDisplay.textContent = "X's turn!"
     const makeMove = (index) => {
         Gameboard.setSign(index, currentPlayer.getSign());
         currentPlayer = (currentPlayer === playerX) ? playerY : playerX;
+        changeTurn();
     };
+
+    const changeTurn = () => {
+        currentPlayer === playerX ? changeTurnDisplay.textContent = "X's turn!" : changeTurnDisplay.textContent = "O's turn!";
+    }
 
     const checkForWinner = (board) => {
         const WINNING_COMBINATIONS = 
