@@ -8,6 +8,8 @@ const Player = (sign) => {
 const Gameboard = (() => {
     const board = ['', '', '', '', '', '', '', '', ''];
     const cells = document.querySelectorAll('[data-cell]');
+    const winningMessageText = document.querySelector('[data-win-message-text]')
+    const winningMessage = document.querySelector('.win-message');
 
     cells.forEach((cell, index) =>{
         cell.addEventListener("click", () => {
@@ -25,7 +27,9 @@ const Gameboard = (() => {
         if(board[index] === ''){
             board[index] = sign;
             if(GameController.checkForWinner(board)){
-                
+                winningMessageText.innerText = `${GameController.currentPlayer === GameController.playerX ? "X's" : "O's"} Wins!`;
+
+                winningMessage.classList.add('show');
             }
             
             updateBoard();
