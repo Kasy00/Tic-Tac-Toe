@@ -38,10 +38,14 @@ const Gameboard = (() => {
     });
 
     const resetBoard = () => {
-        console.log('jestem');
         board.fill('');
         updateBoard();
         winningMessage.classList.remove('show');
+        cells.forEach((cell, index) =>{
+            cell.addEventListener("click", () => {
+                GameController.makeMove(index);
+            }, { once: true });
+        });
     };
     
     return { board, cells, updateBoard, resetBoard, setSign }; 
