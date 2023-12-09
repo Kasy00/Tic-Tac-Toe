@@ -18,13 +18,15 @@ const Gameboard = (() => {
     const updateBoard = () => {
         cells.forEach((cell, index) => {
             cell.textContent = board[index];
-        });    
+        });
     };
 
     const setSign = ((index, sign) => {
-        board[index] = sign;
-
-        updateBoard();
+        if(board[index] === ''){
+            board[index] = sign;
+            updateBoard();
+        }
+        else return;
     });
 
     const resetBoard = () => {
