@@ -3,7 +3,7 @@ const Player = (sign) => {
     const getSign = () => sign;
 
     return { getSign };
-}
+};
 
 //Gameboard factory
 const Gameboard = () => {
@@ -22,8 +22,15 @@ const Gameboard = () => {
     };
     
     return { board, cells, updateBoard, resetBoard }; 
-}
+};
 
 const gameboard = Gameboard();
 
+
+//Game factory
+const GameController = () => {
+    const playerX = Player("X");
+    const playerY = Player("O");
+    let currentPlayer = playerX;
+}
 
