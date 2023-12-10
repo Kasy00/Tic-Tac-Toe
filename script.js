@@ -62,7 +62,7 @@ const Gameboard = (() => {
         });
     };
     
-    return { board, cells, updateBoard, resetBoard, setSign }; 
+    return { updateBoard, resetBoard, setSign }; 
 })();
 
 const GameController = (() => {
@@ -113,7 +113,7 @@ const GameController = (() => {
 
 
 
-    return { makeMove, checkForWinner, changeTurn, currentPlayer};
+    return { makeMove, checkForWinner, changeTurn };
 })();
 
 
