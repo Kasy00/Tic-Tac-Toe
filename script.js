@@ -21,22 +21,28 @@ const Gameboard = (() => {
         cells.forEach((cell, index) => {
             cell.textContent = board[index];
         });
-        if (board.every(cell => cell !== '')) {
-            winningMessageText.innerText = `Draw!`;
-            winningMessage.classList.add('show');
-        }
     };
 
     const setSign = ((index, sign) => {
         if(board[index] === ''){
             board[index] = sign;
             if(GameController.checkForWinner(board)){
-                winningMessageText.innerText = `${GameController.currentPlayer === GameController.playerX ? "X's" : "O's"} Wins!`;
+                winningMessageText.innerText = `${sign === "X" ? "X's" : "O's"} Wins!`;
+                updateBoard();
                 winningMessage.classList.add('show');
   
             }
-            updateBoard();
-        }else return;
+            else if(board.every(cell => cell !== '')){
+                winningMessageText.innerText = `Draw!`;
+                updateBoard();
+                winningMessage.classList.add('show');
+            }
+            else{
+                GameController.changeTurn();
+                updateBoard();
+            }       
+        }
+
 
     });
 
@@ -71,13 +77,8 @@ const GameController = (() => {
     changeTurnDisplay.textContent = "X's turn!"
     const makeMove = (index) => {
         Gameboard.setSign(index, currentPlayer.getSign());
-        currentPlayer = (currentPlayer === playerX) ? playerY : playerX;
-        changeTurn();
+        Gameboard.updateBoard();
     };
-
-    const changeTurn = () => {
-        currentPlayer === playerX ? changeTurnDisplay.textContent = "X's turn!" : changeTurnDisplay.textContent = "O's turn!";
-    }
 
     const checkForWinner = (board) => {
         const WINNING_COMBINATIONS = 
@@ -97,16 +98,22 @@ const GameController = (() => {
         });
     };
 
+    const changeTurn = () => {
+        currentPlayer = (currentPlayer === playerX) ? playerY : playerX;
+        currentPlayer === playerX ? changeTurnDisplay.textContent = "X's turn!" : changeTurnDisplay.textContent = "O's turn!";
+    }
+
     restartBtns.forEach(button =>{
         button.addEventListener("click", (e) => {
             Gameboard.resetBoard();
+            currentPlayer = playerX;
             changeTurnDisplay.textContent = "X's turn!";
         });
     });
 
 
 
-    return { makeMove, checkForWinner, changeTurn};
+    return { makeMove, checkForWinner, changeTurn, currentPlayer};
 })();
 
 
